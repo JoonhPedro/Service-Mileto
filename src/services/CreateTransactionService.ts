@@ -5,6 +5,7 @@ interface CreateTransactionServiceProps {
   categoria: string
   preco: string
   status: string
+  metodo: string
 }
 
 class CreateTransactionService {
@@ -12,6 +13,7 @@ class CreateTransactionService {
     name,
     categoria,
     preco,
+    metodo,
     status,
   }: CreateTransactionServiceProps) {
     try {
@@ -20,6 +22,7 @@ class CreateTransactionService {
           name,
           categoria,
           preco,
+          metodo,
           status,
         },
       })

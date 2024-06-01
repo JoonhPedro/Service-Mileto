@@ -1,23 +1,23 @@
-import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify'
-import { CreateTransctionController } from './controllers/CreateTranscationsControllers'
-import { ListTransactionController } from './controllers/ListTransactionControllers'
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { CreateTransctionController } from "./controllers/CreateTranscationsControllers";
+import { ListTransactionController } from "./controllers/ListTransactionControllers";
 
-const message = 'Service Rodando'
+const message = "Service Rodando";
 
 export async function routes(fastify: FastifyInstance) {
-  fastify.get('/', async () => {
-    return message
-  })
+  fastify.get("/", async () => {
+    return message;
+  });
   fastify.post(
-    '/transactions',
+    "/transactions",
     async (request: FastifyRequest, reply: FastifyReply) => {
-      return new CreateTransctionController().handle(request, reply)
+      return new CreateTransctionController().handle(request, reply);
     },
-  )
+  );
   fastify.get(
-    '/transactions',
+    "/transactions",
     async (request: FastifyRequest, reply: FastifyReply) => {
-      return new ListTransactionController().handle(request, reply)
+      return new ListTransactionController().handle(request, reply);
     },
-  )
+  );
 }

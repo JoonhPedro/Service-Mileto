@@ -19,6 +19,7 @@ model Transaction {
   categoria String
   preco String
   status String
+  metodo String
   created_at DateTime ? @default(now()) 
   updated_at DateTime ? @default(now()) 
 }
