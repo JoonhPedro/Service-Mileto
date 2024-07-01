@@ -4,12 +4,13 @@ import { CreateTransactionService } from '../services/CreateTransactionService'
 class CreateTransctionController {
   async handle(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const { name, categoria, preco, status, metodo } = request.body as {
+      const { name, categoria, preco, status, file, metodo } = request.body as {
         name: string
         categoria: string
         preco: string
         status: string
         metodo: string
+        file: string
       }
       const transactionService = new CreateTransactionService()
       const transaction = await transactionService.execute({
@@ -17,6 +18,7 @@ class CreateTransctionController {
         categoria,
         preco,
         status,
+        file,
         metodo,
       })
       reply.send(transaction)
