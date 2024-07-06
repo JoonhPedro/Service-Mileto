@@ -24,3 +24,11 @@ model Transaction {
   created_at DateTime ? @default(now()) 
   updated_at DateTime ? @default(now()) 
 }
+
+model Termo {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  contract String
+  observation String
+  created_at DateTime ? @default(now()) 
+  updated_at DateTime ? @default(now()) 
+}
