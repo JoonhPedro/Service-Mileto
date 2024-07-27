@@ -1,0 +1,42 @@
+import prismaClient from '../prisma'
+import bcrypt from 'bcrypt'
+
+interface CreateUserServiceProps {
+  email: string
+  password: string
+  name: string
+}
+
+class CreateUserService {
+  async execute({ email, password, name }: CreateUserServiceProps) {
+    try {
+      const existingUser = await prismaClient.user.findUnique({
+        where: { email },
+      })
+
+      if (existingUser) {
+        throw new Error('Email já está em uso')
+      }
+
+      const hashedPassword = await bcrypt.hash(password, 10)
+
+      const user = await prismaClient.user.create({
+        data: {
+          email,
+          password: hashedPassword,
+          name,
+        },
+      })
+
+      return { user }
+    } catch (err) {
+      if (err instanceof Error) {
+        throw new Error(err.message)
+      } else {
+        throw new Error('Erro inesperado ao criar usuário')
+      }
+    }
+  }
+}
+
+export { CreateUserService }

@@ -4,7 +4,7 @@ import Fastify from 'fastify'
 import { routes } from './routes'
 
 dotenv.config()
-
+const porta = '4000'
 const app = Fastify({ logger: true })
 
 app.setErrorHandler((error, request, reply) => {
@@ -17,7 +17,7 @@ const start = async () => {
 
   try {
     await app.listen({ port: 4000, host: '0.0.0.0' })
-    console.info('📄️ Server Transactions started! Port: 4000!')
+    console.info(`📄️ Server Transactions started! ${porta}`)
   } catch (err) {
     process.exit(1)
   }

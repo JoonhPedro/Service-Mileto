@@ -6,7 +6,8 @@ interface CreateTransactionServiceProps {
   preco: string
   status: string
   metodo: string
-  file: string
+  observations: string
+  userId: string
 }
 
 class CreateTransactionService {
@@ -15,8 +16,9 @@ class CreateTransactionService {
     categoria,
     preco,
     metodo,
-    file,
+    observations,
     status,
+    userId,
   }: CreateTransactionServiceProps) {
     try {
       const transaction = await prismaClient.transaction.create({
@@ -25,14 +27,16 @@ class CreateTransactionService {
           categoria,
           preco,
           metodo,
-          file,
+          observations,
           status,
+          userId,
         },
       })
 
       return transaction
     } catch (err) {
-      return err
+      console.error('Error in CreateTransactionService.execute:', err)
+      throw err
     }
   }
 }
