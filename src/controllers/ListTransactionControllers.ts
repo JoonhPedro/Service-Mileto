@@ -1,4 +1,4 @@
-import { FastifyRequest, FastifyReply } from 'fastify'
+import { FastifyReply, FastifyRequest } from 'fastify'
 import { ListTransactionService } from '../services/ListTransactionService'
 
 class ListTransactionController {
@@ -14,3 +14,4 @@ class ListTransactionController {
 }
 
 export { ListTransactionController }
+

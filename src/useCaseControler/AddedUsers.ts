@@ -28,7 +28,7 @@ class UsaCaseCreateUser {
         if (err.message.includes('Email já está em uso')) {
           reply.status(400).send({ error: err.message })
         } else {
-          reply.status(500).send({ error: 'Erro ao criar usuário' })
+          reply.status(500).send({ error: 'Erro ao criar usuário' }) 
         }
       } else {
         reply.status(500).send({ error: 'Erro interno do servidor' })
