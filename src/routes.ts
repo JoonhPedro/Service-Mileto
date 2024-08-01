@@ -1,10 +1,12 @@
 import { FastifyInstance } from 'fastify'
-import { AccessController } from './controllers/AccessController'
-import { CreateTransactionController } from './controllers/CreateTransactionController'
-import { CreateUserController } from './controllers/CreateUserController'
-import { ListTermoController } from './controllers/ListTermoControllers'
-import { ListTransactionController } from './controllers/ListTransactionControllers'
-import { ListUsersController } from './controllers/ListUserController'
+import {
+  AccessController, 
+  CreateTransactionController,
+  CreateUserController,
+  FeedBackController,
+  ListTermoController,
+  ListTransactionController,
+  ListUsersController } from './controllers/index'
 
 const message = 'Service Transactions Rodando'
 
@@ -32,4 +34,8 @@ export async function routes(app: FastifyInstance) {
     const controller = new AccessController()
     await controller.login(request, reply)
   })
+  app.post('/feedback', async (resquest, reply) => {
+    const controller = new FeedBackController()
+    await controller.handle(resquest, reply)
+  } )
 }
