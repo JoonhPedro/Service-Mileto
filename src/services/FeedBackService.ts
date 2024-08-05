@@ -1,23 +1,19 @@
 import prismaClient from '../prisma'
 
-interface FeedBackServiceProps {      
+interface FeedBackServiceProps {
   userId: string
-  message: string    
-  imagem: string        
+  message: string
+  imagem: string
 }
 
 class FeedBackService {
-  async execute({
-    message,
-    imagem,
-    userId,
-  }: FeedBackServiceProps) {
+  async execute({ message, imagem, userId }: FeedBackServiceProps) {
     try {
       const feedback = await prismaClient.feedBack.create({
         data: {
-        imagem,
-        message,
-        userId
+          imagem,
+          message,
+          userId,
         },
       })
 

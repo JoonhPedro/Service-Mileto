@@ -15,7 +15,7 @@ const authenticate = async (request: FastifyRequest, reply: FastifyReply) => {
 
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET || 'default_secret',
+      process.env.JWT_SECRET || 'default_secret'
     ) as { userId: string; email: string }
 
     request.user = decoded

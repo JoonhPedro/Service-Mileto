@@ -10,11 +10,11 @@ interface CreateUserServiceProps {
 class CreateUserService {
   async execute({ email, password, name }: CreateUserServiceProps) {
     try {
-      const existingUser = await prismaClient.user.findUnique({
+      const existingEmail = await prismaClient.user.findUnique({
         where: { email },
       })
 
-      if (existingUser) {
+      if (existingEmail) {
         throw new Error('Email já está em uso')
       }
 

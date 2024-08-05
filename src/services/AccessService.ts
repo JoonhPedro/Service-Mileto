@@ -30,12 +30,12 @@ class AccessService {
       const token = jwt.sign(
         { userId: user.id, email: user.email },
         process.env.JWT_SECRET || 'default_secret',
-        { expiresIn: '24h' },
+        { expiresIn: '24h' }
       )
 
       return { user, token }
     } catch (err) {
-      throw new Error('Erro ao fazer login: ' + (err as Error).message)
+      throw new Error('Erro ao fazer login ' + (err as Error).message)
     }
   }
 }

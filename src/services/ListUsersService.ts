@@ -1,36 +1,33 @@
-import prismaClient from '../prisma';
+import prismaClient from '../prisma'
 
 interface ListUsersServiceProps {
-  email?: string;
-  name?: string;
+  email?: string
+  name?: string
   created_at?: string
   updated_at?: string
 }
 
 class ListUsersService {
-  async execute({ email, name, created_at, updated_at }: ListUsersServiceProps) {
+  async execute({ email, name }: ListUsersServiceProps) {
     try {
       const users = await prismaClient.user.findMany({
         where: {
-          email: email,
-          name: name,
-          created_at: created_at,
-          updated_at: updated_at,
+          email,
+          name,
         },
         select: {
           id: true,
           email: true,
           name: true,
           created_at: true,
-          updated_at: true
+          updated_at: true,
         },
-      });
-      return users;
+      })
+      return users
     } catch (err) {
-      return err;
+      return err
     }
   }
 }
 
-export { ListUsersService };
-
+export { ListUsersService }

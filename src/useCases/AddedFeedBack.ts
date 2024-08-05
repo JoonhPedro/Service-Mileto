@@ -4,20 +4,19 @@ import { FeedBackService } from '../services/FeedBackService'
 class AddedFeedBack {
   async handle(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const { message, imagem, userId } =
-        request.body as {
-         message: string
-         imagem: string
-         userId: string
-        }
+      const { message, imagem, userId } = request.body as {
+        message: string
+        imagem: string
+        userId: string
+      }
 
-      const transactionService = new FeedBackService()
-      const transaction = await transactionService.execute({
+      const feedBackService = new FeedBackService()
+      const feedBack = await feedBackService.execute({
         message,
         imagem,
-        userId
+        userId,
       })
-      reply.send(transaction)
+      reply.send(feedBack)
     } catch (err) {
       console.error('Error in Enviar FeedBack:', err)
       return reply.status(500).send({ error: 'Erro ao enviar FeedBack' })

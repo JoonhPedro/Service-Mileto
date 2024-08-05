@@ -14,4 +14,3 @@ class ListTransactionController {
 }
 
 export { ListTransactionController }
-

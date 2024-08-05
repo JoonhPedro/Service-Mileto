@@ -1,12 +1,13 @@
 import { FastifyInstance } from 'fastify'
 import {
-  AccessController, 
+  AccessController,
   CreateTransactionController,
   CreateUserController,
   FeedBackController,
   ListTermoController,
   ListTransactionController,
-  ListUsersController } from './controllers/index'
+  ListUsersController,
+} from './controllers/index'
 
 const message = 'Service Transactions Rodando'
 
@@ -37,5 +38,5 @@ export async function routes(app: FastifyInstance) {
   app.post('/feedback', async (resquest, reply) => {
     const controller = new FeedBackController()
     await controller.handle(resquest, reply)
-  } )
+  })
 }
