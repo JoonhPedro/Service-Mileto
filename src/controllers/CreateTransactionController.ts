@@ -1,27 +1,20 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { CreateTransactionService } from '../services/CreateTransactionService'
+import { CreateTransactionsDTO } from '../dtos/Transactions/CreateTransactionsDTO'
 
 class CreateTransactionController {
   async handle(request: FastifyRequest, reply: FastifyReply) {
     try {
       const { name, categoria, preco, status, observations, metodo, userId } =
-        request.body as {
-          name: string
-          categoria: string
-          preco: string
-          status: string
-          metodo: string
-          observations: string
-          userId: string
-        }
+        request.body as CreateTransactionsDTO
 
-      // // Verifique se userId está presente em request.user
-      // const userId = (request.user as { userId: string })?.userId
+      // const verifyuserId = (request.user as { userId: string })?.userId
+      // console.log(verifyuserId)
 
-      // if (!userId) {
-      //   console.error('User not authenticated or userId missing')
-      //   return reply.status(401).send({ error: 'Usuário não autenticado' })
-      // }
+      if (!userId) {
+        console.error('User not authenticated or userId missing')
+        return reply.status(401).send({ error: 'Usuário não autenticado' })
+      }
 
       const transactionService = new CreateTransactionService()
       const transaction = await transactionService.execute({

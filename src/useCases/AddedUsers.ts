@@ -1,14 +1,11 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { CreateUserService } from '../services/CreateUserService'
+import { CreateUserDTO } from '../dtos/Users/CreateUserDTO'
 
 class UseCaseCreateUser {
   async handle(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const { email, password, name } = request.body as {
-        email: string
-        password: string
-        name: string
-      }
+      const { email, password, name } = request.body as CreateUserDTO
       if (!email || !password || !name) {
         return reply
           .status(400)

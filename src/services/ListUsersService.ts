@@ -1,14 +1,8 @@
+import { ListUsersDTO } from '../dtos/Users/ListUsersDTO'
 import prismaClient from '../prisma'
 
-interface ListUsersServiceProps {
-  email?: string
-  name?: string
-  created_at?: string
-  updated_at?: string
-}
-
 class ListUsersService {
-  async execute({ email, name }: ListUsersServiceProps) {
+  async execute({ email, name }: ListUsersDTO) {
     try {
       const users = await prismaClient.user.findMany({
         where: {

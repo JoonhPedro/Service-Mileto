@@ -1,14 +1,5 @@
+import { CreateTransactionsDTO } from '../dtos/Transactions/CreateTransactionsDTO'
 import prismaClient from '../prisma'
-
-interface CreateTransactionServiceProps {
-  name: string
-  categoria: string
-  preco: string
-  status: string
-  metodo: string
-  observations: string
-  userId: string
-}
 
 class CreateTransactionService {
   async execute({
@@ -19,7 +10,7 @@ class CreateTransactionService {
     observations,
     status,
     userId,
-  }: CreateTransactionServiceProps) {
+  }: CreateTransactionsDTO) {
     try {
       const transaction = await prismaClient.transaction.create({
         data: {
@@ -35,7 +26,7 @@ class CreateTransactionService {
 
       return transaction
     } catch (err) {
-      console.error('Error in CreateTransactionService.execute:', err)
+      console.error('Error in CreateTransactionService: ', err)
       throw err
     }
   }

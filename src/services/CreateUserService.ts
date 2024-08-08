@@ -1,14 +1,9 @@
+import { CreateUserDTO } from '../dtos/Users/CreateUserDTO'
 import prismaClient from '../prisma'
 import bcrypt from 'bcrypt'
 
-interface CreateUserServiceProps {
-  email: string
-  password: string
-  name: string
-}
-
 class CreateUserService {
-  async execute({ email, password, name }: CreateUserServiceProps) {
+  async execute({ email, password, name }: CreateUserDTO) {
     try {
       const existingEmail = await prismaClient.user.findUnique({
         where: { email },

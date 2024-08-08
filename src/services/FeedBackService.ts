@@ -1,16 +1,12 @@
+import { FeedBackDTO } from '../dtos/FeedBack/FeedBackDTO'
 import prismaClient from '../prisma'
 
-interface FeedBackServiceProps {
-  userId: string
-  message: string
-  imagem: string
-}
-
 class FeedBackService {
-  async execute({ message, imagem, userId }: FeedBackServiceProps) {
+  async execute({ message, imagem, userId, title }: FeedBackDTO) {
     try {
       const feedback = await prismaClient.feedBack.create({
         data: {
+          title,
           imagem,
           message,
           userId,
