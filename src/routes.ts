@@ -5,7 +5,7 @@ import {
   CreateUserController,
   FeedBackController,
   ListTermoController,
-  ListTransactionController,
+  ListTrasactionsControllers,
   ListUsersController,
 } from './controllers/index'
 
@@ -19,7 +19,7 @@ export async function routes(app: FastifyInstance) {
     return new CreateTransactionController().handle(request, reply)
   })
   app.get('/transactions', async (request, reply) => {
-    return new ListTransactionController().handle(request, reply)
+    return new ListTrasactionsControllers().handle(request, reply)
   })
   app.get('/termo', async (request, reply) => {
     return new ListTermoController().handle(request, reply)

@@ -6,6 +6,7 @@ class ListUsersController {
 
   constructor() {
     this.ListUsers = new UseListUsers()
+    console.log(this?.ListUsers.handle.name)
   }
 
   async handle(request: FastifyRequest, reply: FastifyReply) {

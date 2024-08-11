@@ -8,7 +8,7 @@ class AccessController {
     this.Access = new UseAccess()
   }
 
-  async handle(request: FastifyRequest, reply: FastifyReply) {
+  async login(request: FastifyRequest, reply: FastifyReply) {
     await this.Access.login(request, reply)
   }
 }
