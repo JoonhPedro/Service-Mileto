@@ -1,4 +1,6 @@
+/* eslint-disable new-cap */
 import { CreateUserDTO } from '../dtos/Users/CreateUserDTO'
+import { userCreate, userEmailIsAlready } from '../errors/Users'
 import prismaClient from '../prisma'
 import bcrypt from 'bcrypt'
 
@@ -10,7 +12,7 @@ class CreateUserService {
       })
 
       if (existingEmail) {
-        throw new Error('Email já está em uso')
+        throw new userEmailIsAlready()
       }
 
       const hashedPassword = await bcrypt.hash(password, 10)
@@ -28,7 +30,7 @@ class CreateUserService {
       if (err instanceof Error) {
         throw new Error(err.message)
       } else {
-        throw new Error('Erro inesperado ao criar usuário')
+        throw new userCreate()
       }
     }
   }

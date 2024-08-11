@@ -1,4 +1,5 @@
 import { ListUsersDTO } from '../dtos/Users/ListUsersDTO'
+import { ListUser } from '../errors/Users'
 import prismaClient from '../prisma'
 
 class ListUsersService {
@@ -19,7 +20,10 @@ class ListUsersService {
       })
       return users
     } catch (err) {
-      return err
+      if (err instanceof Error) {
+        throw new ListUser()
+      }
+      return (err as Error).message
     }
   }
 }

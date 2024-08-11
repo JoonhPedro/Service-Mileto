@@ -1,4 +1,6 @@
 import { FeedBackDTO } from '../dtos/FeedBack/FeedBackDTO'
+import { SendFeedBack } from '../errors/FeedBack'
+
 import prismaClient from '../prisma'
 
 class FeedBackService {
@@ -15,8 +17,10 @@ class FeedBackService {
 
       return feedback
     } catch (err) {
-      console.error('Error in enviar feedback:', (err as Error).message)
-      throw err
+      if (err instanceof Error) {
+        throw new SendFeedBack()
+      }
+      return (err as Error).message
     }
   }
 }

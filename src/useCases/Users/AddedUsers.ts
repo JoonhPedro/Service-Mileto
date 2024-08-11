@@ -1,11 +1,13 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { CreateUserService } from '../services/CreateUserService'
-import { CreateUserDTO } from '../dtos/Users/CreateUserDTO'
+import { CreateUserService } from '../../services/CreateUserService'
+import { CreateUserDTO } from '../../dtos/Users/CreateUserDTO'
+import { userEmailIsAlready } from '../../errors/Users'
 
 class UseCaseCreateUser {
   async handle(request: FastifyRequest, reply: FastifyReply) {
     try {
       const { email, password, name } = request.body as CreateUserDTO
+
       if (!email || !password || !name) {
         return reply
           .status(400)
@@ -19,17 +21,12 @@ class UseCaseCreateUser {
         name,
       })
 
-      reply.status(201).send(user)
+      return reply.status(201).send(user)
     } catch (err) {
-      if (err instanceof Error) {
-        if (err.message.includes('Email já está em uso')) {
-          reply.status(400).send({ error: err.message })
-        } else {
-          reply.status(500).send({ error: 'Erro ao criar usuário' })
-        }
-      } else {
-        reply.status(500).send({ error: 'Erro interno do servidor' })
+      if (err instanceof userEmailIsAlready) {
+        return reply.status(400).send({ error: 'Email já cadastrado' })
       }
+      return reply.status(500).send({ error: 'Erro ao criar usuário' })
     }
   }
 }

@@ -1,14 +1,12 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { AccessService } from '../services/AccessService'
+import { AccessDTO } from '../dtos/Users/AccessDTO'
 
 class AccessController {
   private accessService = new AccessService()
 
   async login(request: FastifyRequest, reply: FastifyReply) {
-    const { email, password } = request.body as {
-      email: string
-      password: string
-    }
+    const { email, password } = request.body as AccessDTO
 
     try {
       const result = await this.accessService.login({ email, password })

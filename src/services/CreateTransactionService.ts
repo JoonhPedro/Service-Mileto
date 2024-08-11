@@ -1,4 +1,5 @@
 import { CreateTransactionsDTO } from '../dtos/Transactions/CreateTransactionsDTO'
+import { CreateTransactions } from '../errors/Transactions'
 import prismaClient from '../prisma'
 
 class CreateTransactionService {
@@ -26,8 +27,10 @@ class CreateTransactionService {
 
       return transaction
     } catch (err) {
-      console.error('Error in CreateTransactionService: ', err)
-      throw err
+      if (err as Error) {
+        throw new CreateTransactions()
+      }
+      return (err as Error).message
     }
   }
 }

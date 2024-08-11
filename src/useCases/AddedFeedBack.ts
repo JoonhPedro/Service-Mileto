@@ -1,6 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { FeedBackService } from '../services/FeedBackService'
 import { FeedBackDTO } from '../dtos/FeedBack/FeedBackDTO'
+import { SendFeedBack } from '../errors/FeedBack'
 
 class AddedFeedBack {
   async handle(request: FastifyRequest, reply: FastifyReply) {
@@ -16,8 +17,10 @@ class AddedFeedBack {
       })
       reply.send(feedBack)
     } catch (err) {
-      console.error('Error ao Enviar FeedBack:', err)
-      return reply.status(500).send({ error: 'Erro ao enviar FeedBack' })
+      if (err instanceof SendFeedBack) {
+        return reply.status(500).send({ error: 'Erro ao enviar FeedBack' })
+      }
+      return (err as Error).message
     }
   }
 }

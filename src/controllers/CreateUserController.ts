@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { UseCaseCreateUser } from '../useCases/AddedUsers'
+import { UseCaseCreateUser } from '../useCases/Users'
 
 class CreateUserController {
   private createUser: UseCaseCreateUser

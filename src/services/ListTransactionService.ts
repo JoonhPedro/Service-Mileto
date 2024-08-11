@@ -1,4 +1,5 @@
 import prismaClient from '../prisma'
+import { ListTransactions } from '../errors/Transactions'
 
 class ListTransactionService {
   async execute() {
@@ -6,7 +7,10 @@ class ListTransactionService {
       const transaction = await prismaClient.transaction.findMany()
       return transaction
     } catch (err) {
-      return err
+      if (err instanceof Error) {
+        throw new ListTransactions()
+      }
+      return (err as Error).message
     }
   }
 }
