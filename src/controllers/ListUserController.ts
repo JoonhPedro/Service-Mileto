@@ -1,20 +1,15 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { ListUsersService } from '../services/ListUsersService'
-import { ListUsersDTO } from '../dtos/Users/ListUsersDTO'
+import { UseListUsers } from '../useCases/Users/ListUser'
 
 class ListUsersController {
+  private ListUsers: UseListUsers
+
+  constructor() {
+    this.ListUsers = new UseListUsers()
+  }
+
   async handle(request: FastifyRequest, reply: FastifyReply) {
-    try {
-      const { email, name } = request.query as ListUsersDTO
-      const listUsersService = new ListUsersService()
-      const users = await listUsersService.execute({
-        email,
-        name,
-      })
-      reply.send(users)
-    } catch (err) {
-      reply.status(500).send(err)
-    }
+    await this.ListUsers.handle(request, reply)
   }
 }
 

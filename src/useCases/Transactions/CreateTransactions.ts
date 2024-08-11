@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { CreateTransactionService } from '../services/CreateTransactionService'
-import { CreateTransactionsDTO } from '../dtos/Transactions/CreateTransactionsDTO'
+import { CreateTransactionService } from '../../services/CreateTransactionService'
+import { CreateTransactionsDTO } from '../../dtos/Transactions/CreateTransactionsDTO'
 
 class UseCreateTransactionController {
   async handle(request: FastifyRequest, reply: FastifyReply) {

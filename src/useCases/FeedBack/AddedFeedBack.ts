@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { FeedBackService } from '../services/FeedBackService'
-import { FeedBackDTO } from '../dtos/FeedBack/FeedBackDTO'
-import { SendFeedBack } from '../errors/FeedBack'
+import { FeedBackService } from '../../services/FeedBackService'
+import { FeedBackDTO } from '../../dtos/FeedBack/FeedBackDTO'
+import { SendFeedBack } from '../../errors/FeedBack'
 
 class AddedFeedBack {
   async handle(request: FastifyRequest, reply: FastifyReply) {

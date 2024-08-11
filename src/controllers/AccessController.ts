@@ -1,21 +1,15 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { AccessService } from '../services/AccessService'
-import { AccessDTO } from '../dtos/Users/AccessDTO'
+import { UseAccess } from '../useCases/Users'
 
 class AccessController {
-  private accessService = new AccessService()
+  private Access: UseAccess
 
-  async login(request: FastifyRequest, reply: FastifyReply) {
-    const { email, password } = request.body as AccessDTO
+  constructor() {
+    this.Access = new UseAccess()
+  }
 
-    try {
-      const result = await this.accessService.login({ email, password })
-      reply.send(result)
-    } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : 'Erro inesperado'
-      reply.status(401).send({ error: errorMessage })
-    }
+  async handle(request: FastifyRequest, reply: FastifyReply) {
+    await this.Access.login(request, reply)
   }
 }
 

@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { AddedFeedBack } from '../useCases/AddedFeedBack'
+import { AddedFeedBack } from '../useCases/FeedBack'
 
 class FeedBackController {
   private AddedFeedBack: AddedFeedBack

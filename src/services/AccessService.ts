@@ -2,13 +2,17 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import prismaClient from '../prisma'
 import { LoginUserDTO } from '../dtos/Users/LoginUserDTO'
-import { PasswordInValid, EmailPasswordInValid } from '../errors/Users'
+import {
+  PasswordInValid,
+  EmailPasswordInValid,
+  EmailPasswordRequered,
+} from '../errors/Users'
 import { UserLogin } from '../errors/Users/login'
 
 class AccessService {
   async login({ email, password }: LoginUserDTO) {
     if (!email || !password) {
-      throw new Error('Email e senha são obrigatórios')
+      throw new EmailPasswordRequered()
     }
 
     try {

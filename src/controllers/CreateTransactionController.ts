@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { UseCreateTransactionController } from '../useCases'
+import { UseCreateTransactionController } from '../useCases/Transactions'
 
 class CreateTransactionController {
   private createTransaction: UseCreateTransactionController
