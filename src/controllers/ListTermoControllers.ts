@@ -1,15 +1,15 @@
-import { FastifyRequest, FastifyReply } from 'fastify'
-import { ListTermoService } from '../services/ListTermoService'
+import { FastifyReply, FastifyRequest } from 'fastify'
+import { ListTermo } from '../useCases/Termo'
 
 class ListTermoController {
+  private ListTermo: ListTermo
+
+  constructor() {
+    this.ListTermo = new ListTermo()
+  }
+
   async handle(request: FastifyRequest, reply: FastifyReply) {
-    try {
-      const listTermoService = new ListTermoService()
-      const termo = await listTermoService.execute()
-      reply.send(termo)
-    } catch (err) {
-      return (err as Error).message
-    }
+    await this.ListTermo.handle(request, reply)
   }
 }
 

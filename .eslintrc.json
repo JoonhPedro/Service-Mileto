@@ -1,10 +1,41 @@
 {
-  "extends": "@rocketseat/eslint-config/node",
-  "prettier/prettier": [
-    "error",
-    {
-      "singleQuote": true,
-      "parser": "flow"
-    }
-  ]
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "@rocketseat/eslint-config/react",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "import"],
+  "rules": {
+    "new-cap": ["error", { "newIsCap": true }],
+    "prettier/prettier": [
+      "error",
+      {
+        "semi": false,
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "printWidth": 80
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          ["builtin", "external"],
+          ["internal"],
+          ["parent", "sibling", "index"]
+        ],
+        "newlines-between": "always"
+      }
+    ],
+    "import/no-unresolved": "error", 
+    "import/named": "error",
+    "import/default": "error"
+  }
 }

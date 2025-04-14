@@ -1,17 +1,16 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { ListTransactionService } from '../services/ListTransactionService'
+import { UseListTransaction } from '../useCases/Transactions'
 
-class ListTransactionController {
+class ListTrasactionsControllers {
+  private ListTrasactions: UseListTransaction
+
+  constructor() {
+    this.ListTrasactions = new UseListTransaction()
+  }
+
   async handle(request: FastifyRequest, reply: FastifyReply) {
-    try {
-      const listTransactionService = new ListTransactionService()
-      const transaction = await listTransactionService.execute()
-      reply.send(transaction)
-    } catch (err) {
-      return err
-    }
+    await this.ListTrasactions.handle(request, reply)
   }
 }
 
-export { ListTransactionController }
-
+export { ListTrasactionsControllers }

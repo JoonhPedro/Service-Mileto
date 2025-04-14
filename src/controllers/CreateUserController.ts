@@ -1,15 +1,15 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { UsaCaseCreateUser } from '../useCaseControler/AddedUsers'
+import { UseCaseCreateUser } from '../useCases/Users'
 
 class CreateUserController {
-  private useCase: UsaCaseCreateUser
+  private createUser: UseCaseCreateUser
 
   constructor() {
-    this.useCase = new UsaCaseCreateUser()
+    this.createUser = new UseCaseCreateUser()
   }
 
   async handle(request: FastifyRequest, reply: FastifyReply) {
-    await this.useCase.handle(request, reply)
+    await this.createUser.handle(request, reply)
   }
 }
 

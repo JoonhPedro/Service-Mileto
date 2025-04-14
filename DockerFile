@@ -1,0 +1,23 @@
+FROM node:18-alpine
+
+WORKDIR ./Api-Money
+
+RUN apk add git
+
+COPY package.json .
+COPY .npmrc .
+COPY .yarnrc.yml .
+
+RUN npm install -g typescript
+RUN corepack enable
+RUN yarn install
+RUN yarn cache clean
+
+COPY . .
+
+RUN yarn build
+RUN yarn postbuild
+
+EXPOSE 4000
+
+CMD ["npm", "start"]

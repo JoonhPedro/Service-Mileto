@@ -1,21 +1,22 @@
+import { CreateUserDTO } from '../dtos/Users/CreateUserDTO'
+import { UserCreate, UserEmailIsAlready } from '../errors/Users'
 import prismaClient from '../prisma'
 import bcrypt from 'bcrypt'
-
-interface CreateUserServiceProps {
-  email: string
-  password: string
-  name: string
-}
+import { UserResponseDTO } from '../dtos/Users/UserResponseDTO'
 
 class CreateUserService {
-  async execute({ email, password, name }: CreateUserServiceProps) {
+  async execute({
+    email,
+    password,
+    name,
+  }: CreateUserDTO): Promise<UserResponseDTO> {
     try {
-      const existingUser = await prismaClient.user.findUnique({
+      const existingEmail = await prismaClient.user.findUnique({
         where: { email },
       })
 
-      if (existingUser) {
-        throw new Error('Email já está em uso')
+      if (existingEmail) {
+        throw new UserEmailIsAlready()
       }
 
       const hashedPassword = await bcrypt.hash(password, 10)
@@ -33,7 +34,7 @@ class CreateUserService {
       if (err instanceof Error) {
         throw new Error(err.message)
       } else {
-        throw new Error('Erro inesperado ao criar usuário')
+        throw new UserCreate()
       }
     }
   }

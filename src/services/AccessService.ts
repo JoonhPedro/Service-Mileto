@@ -1,16 +1,19 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import prismaClient from '../prisma'
-
-interface LoginProps {
-  email: string
-  password: string
-}
+import { LoginUserDTO } from '../dtos/Users/LoginUserDTO'
+import {
+  PasswordInValid,
+  EmailPasswordInValid,
+  EmailPasswordRequered,
+} from '../errors/Users'
+import { UserLogin } from '../errors/Users'
+import { UserResponseDTO } from '../dtos/Users/'
 
 class AccessService {
-  async login({ email, password }: LoginProps) {
+  async login({ email, password }: LoginUserDTO): Promise<UserResponseDTO> {
     if (!email || !password) {
-      throw new Error('Email e senha são obrigatórios')
+      throw new EmailPasswordRequered()
     }
 
     try {
@@ -19,23 +22,23 @@ class AccessService {
       })
 
       if (!user) {
-        throw new Error('Email ou senha inválidos')
+        throw new EmailPasswordInValid()
       }
 
       const isPasswordValid = await bcrypt.compare(password, user.password)
       if (!isPasswordValid) {
-        throw new Error('Senha inválida')
+        throw new PasswordInValid()
       }
 
       const token = jwt.sign(
         { userId: user.id, email: user.email },
         process.env.JWT_SECRET || 'default_secret',
-        { expiresIn: '24h' },
+        { expiresIn: '1h' }
       )
 
       return { user, token }
     } catch (err) {
-      throw new Error('Erro ao fazer login: ' + (err as Error).message)
+      throw new UserLogin()
     }
   }
 }

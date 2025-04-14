@@ -1,36 +1,31 @@
-import prismaClient from '../prisma';
-
-interface ListUsersServiceProps {
-  email?: string;
-  name?: string;
-  created_at?: string
-  updated_at?: string
-}
+import { ListUsersDTO } from '../dtos/Users/ListUsersDTO'
+import { ListUser } from '../errors/Users'
+import prismaClient from '../prisma'
 
 class ListUsersService {
-  async execute({ email, name, created_at, updated_at }: ListUsersServiceProps) {
+  async execute({ email, name }: ListUsersDTO) {
     try {
       const users = await prismaClient.user.findMany({
         where: {
-          email: email,
-          name: name,
-          created_at: created_at,
-          updated_at: updated_at,
+          email,
+          name,
         },
         select: {
           id: true,
           email: true,
           name: true,
           created_at: true,
-          updated_at: true
+          updated_at: true,
         },
-      });
-      return users;
+      })
+      return users
     } catch (err) {
-      return err;
+      if (err instanceof Error) {
+        throw new ListUser()
+      }
+      return (err as Error).message
     }
   }
 }
 
-export { ListUsersService };
-
+export { ListUsersService }
