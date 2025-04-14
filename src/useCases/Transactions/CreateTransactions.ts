@@ -8,11 +8,8 @@ class UseCreateTransactionController {
       const { name, categoria, preco, status, observations, metodo, userId } =
         request.body as CreateTransactionsDTO
 
-      // const verifyuserId = (request.user as { userId: string })?.userId
-      // console.log(verifyuserId)
-
       if (!userId) {
-        console.error('User not authenticated or userId missing')
+        console.error('Usuário não autenticado ou ID do usuário ausente')
         return reply.status(401).send({ error: 'Usuário não autenticado' })
       }
 
@@ -28,7 +25,6 @@ class UseCreateTransactionController {
       })
       reply.send(transaction)
     } catch (err) {
-      console.error('Error in CreateTransactionController.handle:', err)
       return reply.status(500).send({ error: 'Erro ao criar transação' })
     }
   }

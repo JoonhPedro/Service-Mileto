@@ -7,10 +7,11 @@ import {
   EmailPasswordInValid,
   EmailPasswordRequered,
 } from '../errors/Users'
-import { UserLogin } from '../errors/Users/login'
+import { UserLogin } from '../errors/Users'
+import { UserResponseDTO } from '../dtos/Users/'
 
 class AccessService {
-  async login({ email, password }: LoginUserDTO) {
+  async login({ email, password }: LoginUserDTO): Promise<UserResponseDTO> {
     if (!email || !password) {
       throw new EmailPasswordRequered()
     }
@@ -37,10 +38,7 @@ class AccessService {
 
       return { user, token }
     } catch (err) {
-      if (err as Error) {
-        throw new UserLogin()
-      }
-      return (err as Error).message
+      throw new UserLogin()
     }
   }
 }

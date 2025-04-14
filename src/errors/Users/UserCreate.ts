@@ -1,6 +1,6 @@
-import { NotFound } from '../../shared/utils/notFound'
+import { NotFound } from '../../shared/utils/NotFound'
 
-class userCreate extends NotFound {
+class UserCreate extends NotFound {
   constructor() {
     super('user_Error_Create')
     this.name = 'userErrorCreate'
@@ -8,4 +8,4 @@ class userCreate extends NotFound {
   }
 }
 
-export { userCreate }
+export { UserCreate }

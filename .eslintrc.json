@@ -3,13 +3,15 @@
   "extends": [
     "@rocketseat/eslint-config/react",
     "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
     "prettier"
   ],
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "import"],
   "rules": {
     "new-cap": ["error", { "newIsCap": true }],
     "prettier/prettier": [
@@ -20,6 +22,20 @@
         "trailingComma": "es5",
         "printWidth": 80
       }
-    ]
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          ["builtin", "external"],
+          ["internal"],
+          ["parent", "sibling", "index"]
+        ],
+        "newlines-between": "always"
+      }
+    ],
+    "import/no-unresolved": "error", 
+    "import/named": "error",
+    "import/default": "error"
   }
 }

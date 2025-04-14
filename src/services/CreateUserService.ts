@@ -1,18 +1,22 @@
-/* eslint-disable new-cap */
 import { CreateUserDTO } from '../dtos/Users/CreateUserDTO'
-import { userCreate, userEmailIsAlready } from '../errors/Users'
+import { UserCreate, UserEmailIsAlready } from '../errors/Users'
 import prismaClient from '../prisma'
 import bcrypt from 'bcrypt'
+import { UserResponseDTO } from '../dtos/Users/UserResponseDTO'
 
 class CreateUserService {
-  async execute({ email, password, name }: CreateUserDTO) {
+  async execute({
+    email,
+    password,
+    name,
+  }: CreateUserDTO): Promise<UserResponseDTO> {
     try {
       const existingEmail = await prismaClient.user.findUnique({
         where: { email },
       })
 
       if (existingEmail) {
-        throw new userEmailIsAlready()
+        throw new UserEmailIsAlready()
       }
 
       const hashedPassword = await bcrypt.hash(password, 10)
@@ -30,7 +34,7 @@ class CreateUserService {
       if (err instanceof Error) {
         throw new Error(err.message)
       } else {
-        throw new userCreate()
+        throw new UserCreate()
       }
     }
   }

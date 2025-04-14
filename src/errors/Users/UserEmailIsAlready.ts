@@ -1,6 +1,6 @@
-import { NotFound } from '../../shared/utils/notFound'
+import { NotFound } from '../../shared/utils/NotFound'
 
-class userEmailIsAlready extends NotFound {
+class UserEmailIsAlready extends NotFound {
   constructor() {
     super('user_Email_Is_Already')
     this.name = 'userEmailIsAlready'
@@ -8,4 +8,4 @@ class userEmailIsAlready extends NotFound {
   }
 }
 
-export { userEmailIsAlready }
+export { UserEmailIsAlready }

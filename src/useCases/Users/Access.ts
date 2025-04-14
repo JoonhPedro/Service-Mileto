@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { AccessService } from '../../services/AccessService'
-import { AccessDTO } from '../../dtos/Users/AccessDTO'
+import { AccessDTO } from '../../dtos/Users'
 
 class UseAccess {
   private accessService = new AccessService()
@@ -10,7 +10,12 @@ class UseAccess {
 
     try {
       const result = await this.accessService.login({ email, password })
-      reply.send(result)
+      const { password: _, ...userWithoutPassword } = result.user as any
+
+      reply.send({
+        user: userWithoutPassword,
+        token: result.token,
+      })
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : 'Erro inesperado'

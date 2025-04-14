@@ -1,4 +1,4 @@
-import { NotFound } from '../../shared/utils/notFound'
+import { NotFound } from '../../shared/utils/NotFound'
 
 class ListTransactions extends NotFound {
   constructor() {
