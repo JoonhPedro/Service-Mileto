@@ -27,10 +27,12 @@ class UseCaseCreateUser {
       const userReturn = {} as UserResponseDTO
       return reply.status(201).send(userReturn)
     } catch (err) {
+      console.error("CREATE_USER_ERROR", err)
       if (err instanceof UserEmailIsAlready) {
         return reply.status(400).send({ error: 'Email já cadastrado' })
       }
-      return reply.status(500).send({ error: 'Erro ao criar usuário' })
+      const errMessage = err instanceof Error ? err.message : String(err)
+      return reply.status(500).send({ error: 'Erro ao criar usuário', details: errMessage })
     }
   }
 }

@@ -31,8 +31,12 @@ class CreateUserService {
 
       return { user }
     } catch (err) {
+      console.error("CreateUserService.execute erro:", err)
+      if (err instanceof UserEmailIsAlready) {
+        throw err
+      }
       if (err instanceof Error) {
-        throw new Error(err.message)
+        throw err // throw the original error instead of just message to keep stack trace
       } else {
         throw new UserCreate()
       }
