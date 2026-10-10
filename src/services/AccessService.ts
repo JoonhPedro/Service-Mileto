@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import prismaClient from '../prisma'
 import { LoginUserDTO } from '../dtos/Users/LoginUserDTO'

@@ -1,7 +1,7 @@
 import { CreateUserDTO } from '../dtos/Users/CreateUserDTO'
 import { UserCreate, UserEmailIsAlready } from '../errors/Users'
 import prismaClient from '../prisma'
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import { UserResponseDTO } from '../dtos/Users/UserResponseDTO'
 
 class CreateUserService {
